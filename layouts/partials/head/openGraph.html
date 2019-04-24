@@ -1,17 +1,28 @@
 <meta property="og:title" content="{{ .Title }}{{ if ne .Title .Site.Title }} - {{ .Site.Title }}{{ end }}" />
+<meta property="twitter:title" content="{{ .Title }}{{ if ne .Title .Site.Title }} - {{ .Site.Title }}{{ end }}" />
 <meta property="og:type" content="website" />
 <meta property="og:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}"/>
+<meta name="twitter:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}"/>
 <meta property="og:url" content="{{ .Permalink }}"/>
 <meta property="og:site_name" content="{{ .Site.Title }}"/>
 
+{{ if .Site.Params.author }}
+<meta name="twitter:creator" content="{{ .Site.Params.author }}">
+<meta name="twitter:site" content="{{ .Site.Params.author }}">
+{{ end }}
+
 {{ with .Resources.ByType "image" }}
 {{ range first 5 (sort . "Params.weight") }}
+<meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="{{ .Permalink }}"/>
+<meta name="twitter:image" content="{{ .Permalink }}"/>
 {{ end }}
 {{ else }}
 {{ with .Site.GetPage "page" "/home" }}
 {{ range first 5 (.Resources.ByType "image") }}
+<meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="{{ .Permalink }}"/>
+<meta name="twitter:image" content="{{ .Permalink }}"/>
 {{ end }}
 {{ end }}
 {{ end }}
